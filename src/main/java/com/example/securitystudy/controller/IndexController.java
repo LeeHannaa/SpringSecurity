@@ -3,6 +3,8 @@ package com.example.securitystudy.controller;
 import com.example.securitystudy.Entity.User;
 import com.example.securitystudy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +54,18 @@ public class IndexController {
         user.setPassword(encPassword);
         userRepository.save(user);
         return "redirect:/loginForm"; // redirect - 함수로 호출
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/info")
+    public @ResponseBody String info() {
+        return "개인정보";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')") //메서드가 실행되기 전에 인증
+    @GetMapping("/data")
+    public @ResponseBody String data() {
+        return "data";
     }
 
 }
