@@ -24,6 +24,8 @@ public class User {
     private String roles; // ADMIN, USER ..
     @CreationTimestamp
     private Timestamp createDate;
+    private String provider; //google
+    private String providerId; //googleId
 
     public List<String> getRoleList(){
         if(this.roles.length() > 0) return Arrays.asList(this.roles.split(","));

@@ -1,6 +1,8 @@
 package com.example.securitystudy.config;
 
+import com.example.securitystudy.config.oauth.PrincipalOauth2UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -16,6 +18,10 @@ import org.springframework.web.filter.CorsFilter;
 @EnableMethodSecurity(securedEnabled = true, prePostEnabled = true) // @Secured 활성화, @PreAuthorize, @PostAuthorize 활성화
 @RequiredArgsConstructor
 public class SecurityConfig{
+
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
+
 
     private final CorsFilter corsFilter;
 
@@ -45,6 +51,10 @@ public class SecurityConfig{
                 )
                 .oauth2Login(oauth2Login -> oauth2Login
                         .loginPage("/loginForm") // 구글 로그인이 완료된 후 처리가 필요!
+                        // 1.코드 받기(인증) 2.엑세스토큰(권한) 3.사용자 프로필 정보 가져오기 4.(정보를 토대로 자동으로 회원가입 진행) or (추가적인 정보 필요 시 추가적인 정보 입력칸으로 이동 후 회원가입)
+                        // Tip! 구글 로그인이 완료되면 엑세스 토큰 + 사용자 프로필 정보 한번에 받아옴
+                        .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
+                                .userService(principalOauth2UserService)) // OAuth2 로그인 사용자 서비스
 
                 );
 
