@@ -26,10 +26,10 @@ public class SecurityConfig{
     private final CorsFilter corsFilter;
 
     // .antMatchers -> requestMatchers
-    @Bean // 해당 메서드의 리턴되는 오브젝트를 IoC로 등록해줌
-    public BCryptPasswordEncoder encoderPwd(){ // 비밀번호 암호화
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean // 해당 메서드의 리턴되는 오브젝트를 IoC로 등록해줌
+//    public BCryptPasswordEncoder encoderPwd(){ // 비밀번호 암호화
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

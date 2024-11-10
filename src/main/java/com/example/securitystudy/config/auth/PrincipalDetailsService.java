@@ -19,6 +19,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     // 시큐리티 세션에는 Authentication 타입이, Authentication에는 UserDetails(PrincipalDetails) 타입이 들어가야함
     // 함수 실행 후 = 시큐리티 세션(내부 Authentication(내부 UserDetails))
+    // 함수 종료 시 @AuthenticationPrincipal 어노테이션이 만들어진다.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // username은 input으로 받아오는 name과 동일
