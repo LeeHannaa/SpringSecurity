@@ -8,6 +8,9 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,7 +21,12 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String role;
+    private String roles; // ADMIN, USER ..
     @CreationTimestamp
     private Timestamp createDate;
+
+    public List<String> getRoleList(){
+        if(this.roles.length() > 0) return Arrays.asList(this.roles.split(","));
+        return new ArrayList<>();
+    }
 }

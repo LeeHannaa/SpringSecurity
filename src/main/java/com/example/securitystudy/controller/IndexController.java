@@ -48,7 +48,7 @@ public class IndexController {
     @PostMapping("/join")
     public String join(User user){
         System.out.println(user);
-        user.setRole("ROLE_USER");
+        user.setRoles("ROLE_USER");
         // 비밀번호를 암호화하지 않을 경우 security로 회원가입이 안됨.
         String encPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encPassword);
